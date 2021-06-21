@@ -1,0 +1,41 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29006.145
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{2C7CFF5A-4E47-4D76-BDB6-AD10CDA2283D}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+		global.json = global.json
+		NuGet.config = NuGet.config
+		README.md = README.md
+		eng\Version.Details.xml = eng\Version.Details.xml
+		eng\Versions.props = eng\Versions.props
+		eng\VisualStudio.props = eng\VisualStudio.props
+		eng\VisualStudio.targets = eng\VisualStudio.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{9B611A92-9594-4B3E-8068-2A53EF380AE0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.CodeAnalysis.MSBuild", "src\Microsoft.CodeAnalysis.MSBuild\Microsoft.CodeAnalysis.MSBuild.csproj", "{23A5E35B-B1C2-4B68-A0F0-EB21D395EF3B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{23A5E35B-B1C2-4B68-A0F0-EB21D395EF3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23A5E35B-B1C2-4B68-A0F0-EB21D395EF3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23A5E35B-B1C2-4B68-A0F0-EB21D395EF3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23A5E35B-B1C2-4B68-A0F0-EB21D395EF3B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B6CD4217-E05F-486F-99A7-0A3EA51AA3DD}
+	EndGlobalSection
+EndGlobal

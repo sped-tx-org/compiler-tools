@@ -1,0 +1,185 @@
+﻿<Tree
+      
+      Root="SyntaxNode"
+      LanguageName="Ebnf"
+      MainNamespace="Microsoft.CodeAnalysis.Ebnf"
+      SyntaxNamespace="Microsoft.CodeAnalysis.Ebnf.Syntax"
+      InternalNamespace="Microsoft.CodeAnalysis.Ebnf.Syntax.InternalSyntax">
+
+
+  <SyntaxKinds>
+    <SyntaxKind Name="None" Category="None" />
+    <SyntaxKind Name="List" Category="None" />
+    
+    <SyntaxKind Name="BadToken" Category="Token" />
+    <SyntaxKind Name="EndOfFileToken" Category="Token" />
+    <SyntaxKind Name="IdentifierToken" Category="Token" />
+
+    <SyntaxKind Name="EqualsToken" Value="=" Category="Token" />
+    <SyntaxKind Name="ColonToken" Value=":" Category="Token" />
+
+    <SyntaxKind Name="StarToken" Value="*" Category="Token" />
+    <SyntaxKind Name="PlusToken" Value="+" Category="Token" />
+    
+    <SyntaxKind Name="QuestionToken" Value="?" Category="Token" />
+    <SyntaxKind Name="TildeToken" Value="~" Category="Token" />
+    <SyntaxKind Name="BarToken" Value="|" Category="Token" />
+
+    <SyntaxKind Name="TerminatorToken" Value=";" Category="Token" />
+    
+    <SyntaxKind Name="DotToken" Value="." Category="Token" />
+    <SyntaxKind Name="DotDotToken" Value=".." Category="Token" />
+    <SyntaxKind Name="StringLiteralToken" Category="Token" />
+    <SyntaxKind Name="NumericLiteralToken" Category="Token" />
+    <SyntaxKind Name="CharacterLiteralToken" Category="Token" />
+    <SyntaxKind Name="NullLiteralToken" Value="ε" Category="Token" />
+    <SyntaxKind Name="MinusToken" Value="-" Category="Token" />
+    
+    <SyntaxKind Name="OpenBraceToken" Value="{" Category="Token" />
+    <SyntaxKind Name="CloseBraceToken" Value="}" Category="Token" />
+    
+    <SyntaxKind Name="OpenBracketToken" Value="[" Category="Token" />
+    <SyntaxKind Name="CloseBracketToken" Value="]" Category="Token" />
+    
+    <SyntaxKind Name="OpenParenToken" Value="(" Category="Token" />
+    <SyntaxKind Name="CloseParenToken" Value=")" Category="Token" />
+
+    
+    <SyntaxKind Name="EscapeLiteralToken" Value="\\" Category="Token"/>
+
+
+
+    <SyntaxKind Name="WhitespaceTrivia" Category="Trivia" />
+    <SyntaxKind Name="EndOfLineTrivia" Category="Trivia" />
+    <SyntaxKind Name="DisabledTextTrivia" Category="Trivia" />
+    <SyntaxKind Name="SingleLineCommentTrivia" Category="Trivia" />
+    <SyntaxKind Name="MultiLineCommentTrivia" Category="Trivia" />
+
+    <SyntaxKind Name="SkippedTokensTrivia" Category="Syntax" />
+    <SyntaxKind Name="SpecialSequenceTrivia" Category="Syntax" />
+  </SyntaxKinds>
+
+  <PredefinedNode Name="EbnfSyntaxNode" Base="SyntaxNode"/>
+  <PredefinedNode Name="SyntaxToken" Base="EbnfSyntaxNode"/>
+  <PredefinedNode Name="StructuredTriviaSyntax" Base="EbnfSyntaxNode"/>
+  <PredefinedNode Name="DirectiveTriviaSyntax" Base="EbnfSyntaxNode"/>
+  <PredefinedNode Name="SkippedTokensTriviaSyntax" Base="StructuredTriviaSyntax"/>
+  <PredefinedNode Name="SpecialSequenceTriviaSyntax" Base="DirectiveTriviaSyntax"/>
+
+  <AbstractNode Name="ExpressionSyntax" Base="EbnfSyntaxNode">
+
+  </AbstractNode>
+
+  <Node Name="GrammarSyntax" Base="EbnfSyntaxNode">
+    <Kind Name="Grammar"/>
+    <Field Name="Productions" Type="SyntaxList&lt;ProductionSyntax&gt;"/>
+    <Field Name="EndOfFileToken" Type="SyntaxToken">
+      <Kind Name="EndOfFileToken"/>
+    </Field>
+  </Node>
+
+  <Node Name="QuantifierSyntax" Base="EbnfSyntaxNode">
+    <Kind Name="Quantifier"/>
+    <Field Name="Token" Type="SyntaxToken" Optional="true">
+      <Kind Name="PlusToken"/>
+      <Kind Name="StarToken"/>
+      <Kind Name="QuestionToken"/>
+    </Field>
+  </Node>
+
+  <Node Name="ProductionSyntax" Base="EbnfSyntaxNode">
+    <Kind Name="Production"/>
+    <Field Name="Name" Type="IdentifierNameSyntax" />
+    <Field Name="Operator" Type="SyntaxToken" >
+      <Kind Name="ColonToken"/>
+    </Field>
+    <Field Name="DefinitionsList" Type="SeparatedSyntaxList&lt;ExpressionSyntax&gt;" />
+    <Field Name="Terminator" Type="SyntaxToken">
+      <Kind Name="NewLineToken"/>
+    </Field>
+  </Node>
+
+  <Node Name="IdentifierNameSyntax" Base="ExpressionSyntax">
+    <Kind Name="IdentifierName"/>
+    <Field Name="Identifier" Type="SyntaxToken">
+      <Kind Name="IdentifierToken"/>
+    </Field>
+  </Node>
+
+  <Node Name="QuantifiedExpressionSyntax" Base="ExpressionSyntax">
+    <Kind Name="QuantifiedExpression"/>
+    <Field Name="Expression" Type="ExpressionSyntax" Optional="false" />
+    <Field Name="Quantifier" Type="QuantifierSyntax" Optional="false" />
+  </Node>
+
+  <Node Name="LiteralExpressionSyntax" Base="ExpressionSyntax">
+    <Kind Name="StringLiteralExpression"/>
+    <Kind Name="NumericLiteralExpression" />
+    <Kind Name="CharacterLiteralExpression"/>
+    <Kind Name="NullLiteralExpression" />
+    <Field Name="Token" Type="SyntaxToken">
+      <Kind Name="StringLiteralToken"/>
+      <Kind Name="NumericLiteralToken"/>
+      <Kind Name="CharacterLiteralToken"/>
+      <Kind Name="NullLiteralToken" />
+    </Field>
+  </Node>
+
+  <Node Name="GroupedExpressionSyntax" Base="ExpressionSyntax">
+    <Kind Name="GroupedExpression"/>
+    <Field Name="OpenParen" Type="SyntaxToken">
+      <Kind Name="OpenParenToken"/>
+    </Field>
+    <Field Name="Expression" Type="ExpressionSyntax" />
+    <Field Name="CloseParen" Type="SyntaxToken">
+      <Kind Name="CloseParenToken"/>
+    </Field>
+  </Node>
+
+  <Node Name="AlternativeExpressionSyntax" Base="ExpressionSyntax">
+    <Kind Name="AlternativeExpression"/>
+    <Field Name="AlternativeToken" Type="SyntaxToken">
+      <Kind Name="BarToken" />
+    </Field>
+    <Field Name="Expression" Type="ExpressionSyntax" />
+  </Node>
+
+  <Node Name="NumericRangeExpressionSyntax" Base="ExpressionSyntax">
+    <Kind Name="NumericRangeExpression"/>
+    <Field Name="LowerBound" Type="SyntaxToken">
+      <Kind Name="NumericLiteralToken" />
+    </Field>
+
+    <Field Name="RangeSpecifier" Type="SyntaxToken">
+      <Kind Name="DotDotToken" />
+    </Field>
+    
+    <Field Name="UpperBound" Type="SyntaxToken">
+      <Kind Name="NumericLiteralToken" />
+    </Field>
+  </Node>
+
+  <Node Name="CharacterClassExpressionSyntax" Base="ExpressionSyntax">
+    <Kind Name="CharacterSetExpression" />
+    <Field Name="OpenBracket" Type="SyntaxToken">
+      <Kind Name="OpenBracketToken" />
+    </Field>
+    <Field Name="StartLetter" Type="SyntaxToken">
+      <Kind Name="CharacterLiteralToken" />
+    </Field>
+    <Field Name="RangeSpecifier" Type="SyntaxToken">
+      <Kind Name="MinusToken" />
+    </Field>
+    <Field Name="EndLetter" Type="SyntaxToken">
+      <Kind Name="CharacterLiteralToken" />
+    </Field>
+    <Field Name="CloseBracket" Type="SyntaxToken">
+      <Kind Name="CloseBracketToken" />
+    </Field>
+  </Node>
+  
+
+</Tree>
+
+
+

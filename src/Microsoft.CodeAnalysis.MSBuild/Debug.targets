@@ -1,0 +1,32 @@
+﻿<Project DefaultTargets="SyntaxGenerationTask">
+
+
+  <PropertyGroup>
+    <GenerateSyntax Condition="'$(GenerateSyntax)' == ''">true</GenerateSyntax>
+    <MSBuildSyntaxLanguageName Condition="'$(MSBuildSyntaxLanguageName)'==''">Ebnf</MSBuildSyntaxLanguageName>
+    <MSBuildSyntaxMainNamespace Condition="'$(MSBuildSyntaxMainNamespace)'==''">Microsoft.CodeAnalysis.$(MSBuildSyntaxLanguageName)</MSBuildSyntaxMainNamespace>
+    <MSBuildSyntaxSyntaxNamespace Condition="'$(MSBuildSyntaxSyntaxNamespace)'==''">$(MSBuildSyntaxMainNamespace).Syntax</MSBuildSyntaxSyntaxNamespace>
+    <MSBuildSyntaxInternalNamespace Condition="'$(MSBuildSyntaxInternalNamespace)'==''">$(MSBuildSyntaxSyntaxNamespace).InternalSyntax</MSBuildSyntaxInternalNamespace>
+    <MSBuildSyntaxAssembly>$(MSBuildThisFileDirectory)..\tools\GenerateSyntaxDesignTime.dll</MSBuildSyntaxAssembly>
+  </PropertyGroup>
+
+  <UsingTask TaskName="GenerateSyntaxDesignTime" AssemblyFile="$(MSBuildThisFileDirectory)Microsoft.CodeAnalysis.MSBuild.dll" />
+
+  <Target Name="SyntaxGenerationTask">
+
+    <GenerateSyntaxDesignTime
+      SyntaxModelFile="$(MSBuildThisFileDirectory)Syntax.xml"
+      TargetDirectory="$(MSBuildThisFileDirectory)SYNTAX_OUTPUT\"
+      LanguageName="$(MSBuildSyntaxLanguageName)"
+      MainNamespace="$(MSBuildSyntaxMainNamespace)"
+      SyntaxNamespace="$(MSBuildSyntaxSyntaxNamespace)"
+      InternalNamespace="$(MSBuildSyntaxInternalNamespace)">
+      <Output TaskParameter="OutputFile" ItemName="Compile" />
+      <Output TaskParameter="OutputFile" ItemName="FileWrites" />
+    </GenerateSyntaxDesignTime>
+
+
+  </Target>
+
+
+</Project>

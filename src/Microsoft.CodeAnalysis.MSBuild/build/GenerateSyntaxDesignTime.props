@@ -1,0 +1,35 @@
+﻿<!--
+***********************************************************************************************
+Microsoft.CodeAnalysis.MSBuild.props
+
+WARNING:  DO NOT MODIFY this file unless you are knowledgeable about MSBuild and have
+          created a backup copy.  Incorrect changes to this file will make it
+          impossible to load or build your projects from the command-line or the IDE.
+
+Copyright (c) Ollon, LLC. All rights reserved. 
+***********************************************************************************************
+-->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+
+  <PropertyGroup>
+    <GenerateSyntax Condition="'$(GenerateSyntax)' == ''">true</GenerateSyntax>
+    <MSBuildSyntaxLanguageName Condition="'$(MSBuildSyntaxLanguageName)'==''">Ebnf</MSBuildSyntaxLanguageName>
+    <MSBuildSyntaxMainNamespace Condition="'$(MSBuildSyntaxMainNamespace)'==''">Microsoft.CodeAnalysis.$(MSBuildSyntaxLanguageName)</MSBuildSyntaxMainNamespace>
+    <MSBuildSyntaxSyntaxNamespace Condition="'$(MSBuildSyntaxSyntaxNamespace)'==''">$(MSBuildSyntaxMainNamespace).Syntax</MSBuildSyntaxSyntaxNamespace>
+    <MSBuildSyntaxInternalNamespace Condition="'$(MSBuildSyntaxInternalNamespace)'==''">$(MSBuildSyntaxSyntaxNamespace).InternalSyntax</MSBuildSyntaxInternalNamespace>
+    <MSBuildSyntaxAssembly>$(MSBuildThisFileDirectory)..\tools\Microsoft.CodeAnalysis.MSBuild.dll</MSBuildSyntaxAssembly>
+    <MSBuildSyntaxOutputPath Condition="'$(MSBuildSyntaxOutputPath)' == ''">$(IntermediateOutputPath)</MSBuildSyntaxOutputPath>
+  </PropertyGroup>
+
+  <UsingTask TaskName="GenerateSyntaxDesignTime" AssemblyFile="$(MSBuildSyntaxAssembly)" Condition="'$(GenerateSyntax)' == 'true'"/>
+
+
+  <PropertyGroup Condition="'$(GenerateSyntax)' == 'true'">
+    <CompileDependsOn>
+      $(CompileDependsOn);
+      GenerateSyntaxDesignTimeTask;
+    </CompileDependsOn>
+  </PropertyGroup>
+
+</Project>
